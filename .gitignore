@@ -1,2 +1,3 @@
-react-django-note-env/
+react-django-note-env
 env/
+.gitignore
