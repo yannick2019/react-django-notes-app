@@ -1,10 +1,16 @@
 from django.shortcuts import render
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.serializers import Serializer
+
+# from .models import Note
+# from .serializers import NoteSerializer
+from .utils import get_note_list, get_note_detail, create_note, update_note, delete_note
 
 
 @api_view(["GET"])
-def getRoutes(request):
+def get_routes(request):
     
     routes = [
         {
@@ -39,3 +45,23 @@ def getRoutes(request):
         }
     ]
     return Response(routes)
+
+@api_view(["GET"])
+def get_notes(request):
+    return get_note_list(request)    
+        
+@api_view(["POST"])
+def create_note(request):
+    return create_note(request)
+ 
+@api_view(["GET"])   
+def get_note(request, pk):
+    return get_note_detail(request, pk)
+
+@api_view(["PUT"])
+def update_note(request, pk):
+    return update_note(request, pk)  
+        
+@api_view(["DELETE"])   
+def delete_note(request, pk):
+    return delete_note(request, pk)
