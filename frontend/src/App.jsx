@@ -1,13 +1,49 @@
 import "./App.css";
-import Notes from "./components/notes";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
+import { Suspense } from "react";
+
+import NoteOverview from "./note/overview";
+import NoteDetail from "./note/detail";
 
 function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Layout />}>
+        <Route index element={<NoteOverview />} />
+        <Route path="note/:noteId" element={<NoteDetail />} />
+      </Route>
+    )
+  );
+
   return (
-    <>
-      <h1 className="text-2xl">Notes</h1>
-      <Notes />
-    </>
+    <Suspense fallback={<></>}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 }
+
+const Layout = () => {
+  return (
+    <>
+      <div>
+        <div className="flex items-center justify-center">
+          <main className="mt-5">
+            <div className="">
+              <div>
+                <Outlet />
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default App;

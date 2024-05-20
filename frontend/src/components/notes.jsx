@@ -1,8 +1,11 @@
 import { useFetchData } from "../hooks/useFetchData";
+import { Link } from "react-router-dom";
 
-export default function Notes() {
-  const url = "http://127.0.0.1:8000/notes/";
+const Notes = () => {
+  const url = "http://127.0.0.1:8000/api/notes/";
   const { data: notes, error, loading } = useFetchData(url);
+
+  console.log(notes);
 
   if (loading) return <div>Loading...</div>;
 
@@ -10,13 +13,15 @@ export default function Notes() {
     console.error("Error occurs", error);
   }
 
-  console.log(notes);
-
   return (
     <div>
       {notes.map((note) => (
-        <div key={note.id}>{note.body}</div>
+        <div key={note?.id}>
+          <Link to={`/note/${note?.id}`}>{note?.body}</Link>
+        </div>
       ))}
     </div>
   );
-}
+};
+
+export default Notes;
