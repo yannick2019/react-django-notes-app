@@ -4,7 +4,7 @@ import Notes from "./components/notes";
 function App() {
   return (
     <>
-      <h1>Notes</h1>
+      <h1 className="text-2xl">Notes</h1>
       <Notes />
     </>
   );
